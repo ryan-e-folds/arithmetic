@@ -44,6 +44,8 @@ class Game():
         self.individual_scores = []
 
     def longest_streak(self) -> int:
+        if "i" not in self.individual_scores:
+            return len(self.individual_scores)
         streaks = []
         on_streak = False
         current_streak = 0
