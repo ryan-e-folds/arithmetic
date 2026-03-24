@@ -1,10 +1,8 @@
-from utils import Question
+from utils import Game
 
 def main():
-    q = Question()
-    q.show(with_answer=False)
-    q.take_answer()
-    q.show(True)
+    g = Game()
+    g.play()
 
 if __name__ == "__main__":
     main()
