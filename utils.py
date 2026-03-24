@@ -1,7 +1,7 @@
 import random
 
-class Question():
 
+class Question:
     def __init__(self, max_n: int = 10) -> None:
         self.man_n = max_n
         self.first_num = random.randint(0, max_n)
@@ -11,7 +11,9 @@ class Question():
 
     def show(self, with_answer: bool = True) -> None:
         base_string = f"{self.first_num} + {self.second_num}"
-        output_string = base_string + f" = {self.answer}" if with_answer else base_string
+        output_string = (
+            base_string + f" = {self.answer}" if with_answer else base_string
+        )
         print(output_string)
 
     def score_answer(self, guess: int) -> int:
@@ -24,7 +26,7 @@ class Question():
             print("Incorrect")
             print()
             return -1
-        
+
     def take_answer(self) -> int:
         while True:
             try:
@@ -36,8 +38,8 @@ class Question():
             except ValueError:
                 continue
 
-class Game():
 
+class Game:
     def __init__(self, max_n: int = 10) -> None:
         self.max_n = max_n
         self.total_score = 0
@@ -47,7 +49,6 @@ class Game():
         if "i" not in self.individual_scores:
             return len(self.individual_scores)
         streaks = []
-        on_streak = False
         current_streak = 0
         for idx, score in enumerate(self.individual_scores):
             if score == "i" or idx == len(self.individual_scores):
@@ -69,7 +70,6 @@ class Game():
             else:
                 self.individual_scores.append("i")
         print()
-        print(f"Final score: {self.total_score}. Most consecutive right answers: {self.longest_streak()}")
-
-
-
+        print(
+            f"Final score: {self.total_score}. Most consecutive right answers: {self.longest_streak()}"
+        )
