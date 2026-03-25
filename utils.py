@@ -1,4 +1,9 @@
 import random
+from enum import Enum
+
+
+
+    
 
 
 class Question:
@@ -6,11 +11,23 @@ class Question:
         self.man_n = max_n
         self.first_num = random.randint(0, max_n)
         self.second_num = random.randint(0, max_n)
-        self.answer = self.first_num + self.second_num
         self.score = 0
+        self.operand = random.choice(["+", "-", "x"])
+
+    @property
+    def answer(self) -> int:
+        match self.operand:
+            case "+":
+                return self.first_num + self.second_num
+            case "-":
+                return self.first_num - self.second_num
+            case "x":
+                return self.first_num * self.second_num
+            case _:
+                raise ValueError("Invalid operand") 
 
     def show(self, with_answer: bool = True) -> None:
-        base_string = f"{self.first_num} + {self.second_num}"
+        base_string = f"{self.first_num} {self.operand} {self.second_num}"
         output_string = (
             base_string + f" = {self.answer}" if with_answer else base_string
         )
@@ -23,7 +40,7 @@ class Question:
             print()
             return 1
         else:
-            print("Incorrect")
+            print(f"Incorrect. Correct answer was {self.answer}")
             print()
             return -1
 
@@ -87,5 +104,5 @@ class Game:
                 self.individual_scores.append("i")
         print()
         print(
-            f"Final score: {self.total_score}. Most consecutive right answers: {self.longest_streak()}. Form: {self.form():.1%}"
+            f"Final score: {self.total_score}. Most consecutive right answers: {self.longest_streak()}. Form: {self.form():.1%}. Questions answered: {len(self.individual_scores)}"
         )
