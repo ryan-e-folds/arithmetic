@@ -1,9 +1,4 @@
 import random
-from enum import Enum
-
-
-
-    
 
 
 class Question:
@@ -24,7 +19,7 @@ class Question:
             case "x":
                 return self.first_num * self.second_num
             case _:
-                raise ValueError("Invalid operand") 
+                raise ValueError("Invalid operand")
 
     def show(self, with_answer: bool = True) -> None:
         base_string = f"{self.first_num} {self.operand} {self.second_num}"
