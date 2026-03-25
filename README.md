@@ -8,7 +8,7 @@ Simple CLI game for arithmetic practice.
 
 ### Dependencies
 
-* Python 3.12
+* Python 3.14
 * uv
 
 ### Installing
