@@ -40,8 +40,8 @@ class Question:
 
 
 class Game:
-    def __init__(self, max_n: int = 10) -> None:
-        self.max_n = max_n
+    def __init__(self) -> None:
+        self.max_n = 10
         self.total_score = 0
         self.individual_scores = []
 
@@ -57,8 +57,24 @@ class Game:
                 current_streak += 1
         return max(streaks)
 
-    def play(self, max_questions: int = 5) -> None:
+    def form(self) -> float:
+        last_ten = self.individual_scores[-10:]
+        correct = len([score for score in last_ten if score == "c"])
+        return correct / 10
+
+    def adjust_difficulty(self) -> None:
+        form = self.form()
+        if form > 0.75:
+            print("increasing difficulty")
+            self.max_n += 1
+        if form < 0.25 and self.max_n > 1:
+            print("decreasing difficulty")
+            self.max_n -= 1
+
+    def play(self, max_questions: int = 10) -> None:
         for question in range(max_questions):
+            if question > 0 and question % 10 == 0:
+                self.adjust_difficulty()
             q = Question(max_n=self.max_n)
             q.show(with_answer=False)
             result = q.take_answer()
@@ -71,5 +87,5 @@ class Game:
                 self.individual_scores.append("i")
         print()
         print(
-            f"Final score: {self.total_score}. Most consecutive right answers: {self.longest_streak()}"
+            f"Final score: {self.total_score}. Most consecutive right answers: {self.longest_streak()}. Form: {self.form():.1%}"
         )

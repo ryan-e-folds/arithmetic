@@ -2,8 +2,7 @@ from utils import Game
 
 
 def main():
-    g = Game()
-    g.play()
+    g = Game().play(max_questions=15)
 
 
 if __name__ == "__main__":
