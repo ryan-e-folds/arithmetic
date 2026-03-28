@@ -2,7 +2,7 @@ from utils import Game
 
 
 def main():
-    Game().play(max_questions=15)
+    Game().play()
 
 
 if __name__ == "__main__":
