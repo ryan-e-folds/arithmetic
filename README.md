@@ -2,7 +2,7 @@
 
 ## Description
 
-Simple CLI game for arithmetic practice.
+Simple CLI game for arithmetic practice. Difficulty of the questions adapts to your score. Get answers correct, the questions get harder. Get answers wrong, the questions get easier.
 
 ## Getting Started
 
