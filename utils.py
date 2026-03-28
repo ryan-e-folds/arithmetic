@@ -57,6 +57,10 @@ class Game:
         self.total_score = 0
         self.individual_scores = []
 
+    @property
+    def questions_answered(self):
+        return len(self.individual_scores)
+
     def introduce(self) -> None:
         intro = """
         Welcome to arithmetic.
@@ -74,7 +78,7 @@ class Game:
         streaks = []
         current_streak = 0
         for idx, score in enumerate(self.individual_scores):
-            if score == "i" or idx == len(self.individual_scores):
+            if score == "i" or idx == self.questions_answered:
                 streaks.append(current_streak)
             else:
                 current_streak += 1
@@ -94,10 +98,10 @@ class Game:
             print("Decreasing difficulty")
             self.max_n -= 1
 
-    def play(self, max_questions: int = 10) -> None:
+    def play(self) -> None:
         self.introduce()
-        for question in range(max_questions):
-            if question > 0 and question % 10 == 0:
+        while True:
+            if self.questions_answered > 0 and self.questions_answered % 10 == 0:
                 self.adjust_difficulty()
             q = Question(max_n=self.max_n)
             q.show(with_answer=False)
