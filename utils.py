@@ -39,12 +39,12 @@ class Question:
             print()
             return -1
 
-    def take_answer(self) -> int:
+    def take_answer(self) -> int | None:
         while True:
             try:
                 input_guess = input("Answer: ")
                 if input_guess == "q":
-                    return 0
+                    return None
                 guess = int(input_guess)
                 return self.score_answer(guess)
             except ValueError:
@@ -56,6 +56,17 @@ class Game:
         self.max_n = 10
         self.total_score = 0
         self.individual_scores = []
+
+    def introduce(self) -> None:
+        intro = """
+        Welcome to arithmetic.
+
+        Answer questions correctly and the questions get harder.
+        Answer questions incorrectly and the questions get easier.
+
+        Enter `q` to quit.
+        """
+        print(intro)
 
     def longest_streak(self) -> int:
         if "i" not in self.individual_scores:
@@ -77,13 +88,14 @@ class Game:
     def adjust_difficulty(self) -> None:
         form = self.form()
         if form > 0.75:
-            print("increasing difficulty")
+            print("Increasing difficulty")
             self.max_n += 1
         if form < 0.25 and self.max_n > 1:
-            print("decreasing difficulty")
+            print("Decreasing difficulty")
             self.max_n -= 1
 
     def play(self, max_questions: int = 10) -> None:
+        self.introduce()
         for question in range(max_questions):
             if question > 0 and question % 10 == 0:
                 self.adjust_difficulty()
